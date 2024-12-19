@@ -3,22 +3,22 @@
             class="fas fa-money-bill me-2"></i>BANGSUKRI</div>
     <div class="list-group list-group-flush my-3">
         <a href="{{ route('dashboard') }}"
-            class="list-group-item list-group-item-action bg-transparent abu-text fw-bold active"><i
+            class="list-group-item list-group-item-action bg-transparent abu-text fw-bold {{ $dashboard_active ?? '' }}"><i
                 class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
         <a href="{{ route('sample') }}" class="list-group-item list-group-item-action bg-transparent abu-text fw-bold"><i
                 class="fas fa-boxes me-2"></i>Barang Masuk</a>
         <a href="#" class="list-group-item list-group-item-action bg-transparent abu-text fw-bold"><i
                 class="fas fa-building me-2"></i>Penempatan</a>
-        <button class="list-group-item list-group-item-action bg-transparent abu-text fw-bold" data-bs-toggle="collapse"
+        <button class="list-group-item list-group-item-action bg-transparent abu-text fw-bold {{ $master_active ?? '' }}" data-bs-toggle="collapse"
             data-bs-target="#master-collapse" aria-expanded="true">
             <i class="fas fa-list me-2"></i>Master
         </button>
-        <div class="collapse" id="master-collapse"> {{-- show --}}
+        <div class="collapse {{ $master_show ?? '' }}" id="master-collapse"> {{-- show --}}
             <ul class="btn-toggle-nav list-unstyled ps-4">
                 <li><a href="#" class="link-dark rounded">Barang</a></li>{{-- link-success --}}
                 <li><a href="#" class="link-dark rounded">Karyawan</a></li>
                 <li><a href="#" class="link-dark rounded">Pemasok</a></li>
-                <li><a href="#" class="link-dark rounded">Ruang</a></li>
+                <li><a href="{{ route('ruang.index') }}" class="{{ $ruang_active ?? 'link-dark' }} rounded">Ruang</a></li>
                 <li><a href="#" class="link-dark rounded">Satuan</a></li>
             </ul>
         </div>
