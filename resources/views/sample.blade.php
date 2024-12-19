@@ -1,5 +1,5 @@
 @extends('template.default')
 
 @section('content')
-    @include('template.components.badges')
+    @include('template.components.content')
 @endsection
