@@ -19,7 +19,7 @@
                 <li><a href="#" class="link-dark rounded">Karyawan</a></li>
                 <li><a href="#" class="link-dark rounded">Pemasok</a></li>
                 <li><a href="{{ route('ruang.index') }}" class="{{ $ruang_active ?? 'link-dark' }} rounded">Ruang</a></li>
-                <li><a href="#" class="link-dark rounded">Satuan</a></li>
+                <li><a href="{{ route('satuan.index') }}" class="{{ $satuan_active ?? 'link-dark' }} rounded">Satuan</a></li>
             </ul>
         </div>
         <form action="" method="post">
