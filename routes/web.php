@@ -22,4 +22,7 @@ Route::middleware(['guest'])->group(function () {
     Route::resource('/satuan', SatuanController::class);
     Route::resource('/pemasok', PemasokController::class);
     Route::resource('/barang', BarangController::class);
+    Route::get('login', function(){
+        return view('login');
+    });
 });
