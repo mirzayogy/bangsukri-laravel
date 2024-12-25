@@ -8,4 +8,9 @@ class Satuan extends Model
 {
     protected $table = 'satuan';
     protected $guarded = [];
+
+    public function barangs()
+    {
+        return $this->hasMany(Barang::class);
+    }
 }

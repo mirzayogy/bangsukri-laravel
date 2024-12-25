@@ -52,10 +52,10 @@
                   <label for="region">Region</label>
                   <select class="form-control @error('region') is-invalid @enderror" name="region" id="region" required>
                       <option value="">Pilih Region</option>
-                      <option value="dalam kota">dalam kota</option>
-                      <option value="dalam provinsi">dalam provinsi</option>
-                      <option value="dalam negeri">dalam negeri</option>
-                      <option value="luar negeri">luar negeri</option>
+                      <option value="dalam kota" @selected(old('region') == "dalam kota")>dalam kota</option>
+                      <option value="dalam provinsi" @selected(old('region') == "dalam provinsi")>dalam provinsi</option>
+                      <option value="dalam negeri" @selected(old('region') == "dalam negeri")>dalam negeri</option>
+                      <option value="luar negeri" @selected(old('region') == "luar negeri")>luar negeri</option>
                   </select>
                   @error('region')
                       <p class="text-danger">{{ $message }}</p>

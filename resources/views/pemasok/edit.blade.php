@@ -52,16 +52,16 @@
                   <label for="region">Region</label>
                   <select class="form-control @error('region') is-invalid @enderror" name="region" id="region" required>
                       <option value="">Pilih Region</option>
-                      <option value="dalam kota" {{ old('region') || $pemasok->region == 'dalam kota' ? 'selected' : '' }}>
+                      <option value="dalam kota" @selected(old('region') == 'dalam kota' || (old('region') === null && 'dalam kota' == $pemasok->region))>
                           dalam kota
                       </option>
-                      <option value="dalam provinsi" {{ old('region') || $pemasok->region == 'dalam provinsi' ? 'selected' : '' }}>
+                      <option value="dalam provinsi" @selected(old('region') == 'dalam provinsi' || (old('region') === null && 'dalam provinsi' == $pemasok->region))>
                           dalam provinsi
                       </option>
-                      <option value="dalam negeri" {{ old('region') || $pemasok->region == 'dalam negeri' ? 'selected' : '' }}>
+                      <option value="dalam negeri" @selected(old('region') == 'dalam negeri' || (old('region') === null && 'dalam negeri' == $pemasok->region))>
                           dalam negeri
                       </option>
-                      <option value="luar negeri"{{ old('region') || $pemasok->region == 'luar negeri' ? 'selected' : '' }}>
+                      <option value="luar negeri" @selected(old('region') == 'luar negeri' || (old('region') === null && 'luar negeri' == $pemasok->region))>
                           luar negeri
                       </option>
                   </select>

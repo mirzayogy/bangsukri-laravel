@@ -15,9 +15,9 @@
         </button>
         <div class="collapse {{ $master_show ?? '' }}" id="master-collapse"> {{-- show --}}
             <ul class="btn-toggle-nav list-unstyled ps-4">
-                <li><a href="#" class="link-dark rounded">Barang</a></li>{{-- link-success --}}
+                <li><a href="{{ route('barang.index') }}" class="{{ $barang_active ?? 'link-dark' }} rounded">Barang</a></li>{{-- link-success --}}
                 <li><a href="#" class="link-dark rounded">Karyawan</a></li>
-                <li><a href="#" class="link-dark rounded">Pemasok</a></li>
+                <li><a href="{{ route('pemasok.index') }}" class="{{ $pemasok_active ?? 'link-dark' }} rounded">Pemasok</a></li>
                 <li><a href="{{ route('ruang.index') }}" class="{{ $ruang_active ?? 'link-dark' }} rounded">Ruang</a></li>
                 <li><a href="{{ route('satuan.index') }}" class="{{ $satuan_active ?? 'link-dark' }} rounded">Satuan</a></li>
             </ul>
