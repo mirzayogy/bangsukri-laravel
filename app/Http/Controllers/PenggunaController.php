@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PenggunaController extends Controller
 {
@@ -28,7 +29,12 @@ class PenggunaController extends Controller
      */
     public function create()
     {
-        //
+        return view('pengguna.create', [
+            "title" => "Pengguna",
+            "master_show" => 'show',
+            "master_active" => 'active',
+            "pengguna_active" => 'link-success',
+        ]);
     }
 
     /**
@@ -36,7 +42,21 @@ class PenggunaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|unique:pengguna,email',
+            'password' => 'required|string|min:6|confirmed',
+            'level' => 'required|in:admin,user',
+        ]);
+
+        Pengguna::create([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'level' => $request->level,
+        ]);
+
+        return redirect('/pengguna')->with('success', 'Berhasil tambah data');
     }
 
     /**
