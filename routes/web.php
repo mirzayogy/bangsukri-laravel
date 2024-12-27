@@ -32,4 +32,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/satuan', SatuanController::class);
     Route::resource('/pemasok', PemasokController::class);
     Route::resource('/barang', BarangController::class);
+    Route::resource('/pengguna', PenggunaController::class);
 });

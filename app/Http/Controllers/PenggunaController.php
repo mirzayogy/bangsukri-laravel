@@ -13,7 +13,14 @@ class PenggunaController extends Controller
      */
     public function index()
     {
-        //
+        $pengguna_collections = Pengguna::all();
+        return view('pengguna.index', [
+            "title" => "Pengguna",
+            "master_show" => 'show',
+            "master_active" => 'active',
+            "pengguna_active" => 'link-success',
+            "pengguna_collections" => $pengguna_collections,
+        ]);
     }
 
     /**

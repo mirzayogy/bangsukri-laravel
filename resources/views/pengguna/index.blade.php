@@ -8,10 +8,10 @@
     @endif
     <div class="row">
         <div class="col-md-6">
-            <h3>Barang</h3>
+            <h3>Pengguna</h3>
         </div>
         <div class="col-md-6">
-            <a href="{{ route('barang.create') }}" class="btn btn-success btn-sm float-end">
+            <a href="{{ route('pengguna.create') }}" class="btn btn-success btn-sm float-end">
                 <i class="fa fa-plus-circle"></i> Tambah
             </a>
         </div>
@@ -22,23 +22,21 @@
                 <thead>
                     <tr>
                         <th scope="col" width="50">#</th>
-                        <th scope="col">Nama Barang</th>
-                        <th scope="col">Merk</th>
-                        <th scope="col">Jenis</th>
-                        <th scope="col">Satuan</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Level</th>
                         <td style="width:200px">Aksi</td>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($barang_collections as $barang)
+                    @foreach ($pengguna_collections as $pengguna)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $barang['nama_barang'] }}</td>
-                            <td>{{ $barang['merk'] }}</td>
-                            <td>{{ $barang['jenis'] }}</td>
-                            <td>{{ $barang['satuan']->nama_satuan}}</td>
+                            <td>{{ $pengguna['nama'] }}</td>
+                            <td>{{ $pengguna['email'] }}</td>
+                            <td>{{ $pengguna['level'] }}</td>
                             <td>
-                                @include('barang.action')
+                                @include('pengguna.action')
                             </td>
                         </tr>
                     @endforeach
