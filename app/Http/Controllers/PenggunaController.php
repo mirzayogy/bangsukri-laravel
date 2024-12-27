@@ -78,4 +78,12 @@ class PenggunaController extends Controller
 
         return back()->with('loginError', 'Login gagal, Username/Password salah');
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return redirect('/login');
+    }
 }

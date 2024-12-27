@@ -22,7 +22,9 @@
                 <li><a href="{{ route('satuan.index') }}" class="{{ $satuan_active ?? 'link-dark' }} rounded">Satuan</a></li>
             </ul>
         </div>
-        <form action="" method="post">
+        <form action="{{ route('pengguna.logout') }}" method="post">
+            @csrf
+            @method('POST')
             <button name="logout_button" type="submit" onclick="javascript: return confirm('Yakin keluar?');"
                 class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
                 <i class="fas fa-power-off me-2"></i>Logout
