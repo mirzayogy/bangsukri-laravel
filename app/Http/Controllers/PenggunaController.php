@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PenggunaController extends Controller
 {
@@ -61,5 +62,20 @@ class PenggunaController extends Controller
     public function destroy(Pengguna $pengguna)
     {
         //
+    }
+
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($credentials)) { //Facades
+            $request->session()->regenerate();
+            return redirect()->intended('/');
+        }
+
+        return back()->with('loginError', 'Login gagal, Username/Password salah');
     }
 }

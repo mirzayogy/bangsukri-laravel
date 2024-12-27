@@ -37,7 +37,9 @@
 
 <body class="text-center">
     <main class="form-signin">
-        <form method="post">
+        <form action="{{ route('pengguna.authenticate') }}" method="POST">
+            @csrf
+            @method('POST')
             <img class="mb-0" src="{{ asset('images/bangsukri.jpg') }}" alt="" width="150" height="150">
             <h1 class="h3 mb-3 fw-normal">Bangsukri</h1>
             <p class="mb-3 fw-normal">Aplikasi Barang Masuk dan Inventori</p>
