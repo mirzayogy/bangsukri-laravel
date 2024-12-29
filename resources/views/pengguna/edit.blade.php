@@ -3,55 +3,63 @@
   @section('content')
       <div class="row">
           <div class="col-md-6">
-              <h3>Ubah Data Barang</h3>
+              <h3>Ubah Data Pengguna</h3>
           </div>
           <div class="col-md-6">
-              <a href="{{ route('barang.index') }}" class="btn btn-primary btn-sm float-end">
+              <a href="{{ route('pengguna.index') }}" class="btn btn-primary btn-sm float-end">
                   <i class="fa fa-arrow-circle-left"></i> Kembali
               </a>
           </div>
       </div>
 
       <div class="card px-3 py-3">
-          <form action="{{ route('barang.update', $barang) }}" method="POST">
+          <form action="{{ route('pengguna.update', $pengguna) }}" method="POST">
               @csrf
               @method('PUT')
               <div class="mb-3">
-                  <label for="nama_barang">Nama Barang</label>
-                  <input type="text" class="form-control @error('nama_barang') is-invalid @enderror" name="nama_barang"
-                      id="nama_barang" value="{{ old('nama_barang') ?? $barang->nama_barang }}" required>
-                  @error('nama_barang')
+                  <label for="nama">Nama</label>
+                  <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama"
+                      id="nama" value="{{ old('nama') ?? $pengguna->nama }}" required>
+                  @error('nama')
                       <p class="text-danger">{{ $message }}</p>
                   @enderror
               </div>
               <div class="mb-3">
-                  <label for="merk">Merk</label>
-                  <input type="text" class="form-control @error('merk') is-invalid @enderror" name="merk"
-                      id="merk" value="{{ old('merk') ?? $barang->merk }}" required>
-                  @error('merk')
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                      id="email" value="{{ old('email') ?? $pengguna->email }}" required>
+                  @error('email')
                       <p class="text-danger">{{ $message }}</p>
                   @enderror
               </div>
               <div class="mb-3">
-                  <label for="jenis">Jenis</label>
-                  <input type="text" class="form-control @error('jenis') is-invalid @enderror" name="jenis"
-                      id="jenis" value="{{ old('jenis') ?? $barang->jenis }}" required>
-                  @error('jenis')
-                      <p class="text-danger">{{ $message }}</p>
-                  @enderror
-              </div>
-              <div class="mb-3">
-                  <label for="satuan_id">Satuan</label>
-                  <select class="form-control @error('satuan_id') is-invalid @enderror" name="satuan_id" id="satuan_id"
-                      required>
-                      <option value="">Pilih Satuan</option>
-                      @foreach ($satuan_collections as $satuan)
-                          <option value="{{ $satuan['id'] }}" @selected(old('satuan_id') == $satuan['id'] || (old('satuan_id') === null && $satuan['id'] == $barang->satuan_id))>
-                              {{ $satuan['nama_satuan'] }}
-                          </option>
-                      @endforeach
+                  <label for="level">Level</label>
+                  <select class="form-control @error('level') is-invalid @enderror" name="level" id="level" required>
+                      <option value="">Pilih Level</option>
+                      <option value="admin" @selected(old('level') == 'admin' || (old('level') === null && 'admin' == $pengguna->level))>
+                          admin
+                      </option>
+                      <option value="user" @selected(old('level') == 'user' || (old('level') === null && 'user' == $pengguna->level))>
+                          user
+                      </option>
                   </select>
-                  @error('satuan_id')
+                  @error('level')
+                      <p class="text-danger">{{ $message }}</p>
+                  @enderror
+              </div>
+              <div class="mb-3">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
+                      id="password" value="{{ old('password') }}">
+                  @error('password')
+                      <p class="text-danger">{{ $message }}</p>
+                  @enderror
+              </div>
+              <div class="mb-3">
+                  <label for="password_confirmation">Konfirmasi Password</label>
+                  <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror"
+                      name="password_confirmation" id="password_confirmation" value="{{ old('password_confirmation') }}">
+                  @error('password_confirmation')
                       <p class="text-danger">{{ $message }}</p>
                   @enderror
               </div>

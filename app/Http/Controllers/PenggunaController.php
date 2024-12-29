@@ -72,7 +72,13 @@ class PenggunaController extends Controller
      */
     public function edit(Pengguna $pengguna)
     {
-        //
+        return view('pengguna.edit', [
+            "title" => "Pengguna",
+            "master_show" => 'show',
+            "master_active" => 'active',
+            "pengguna_active" => 'link-success',
+            "pengguna" => $pengguna,
+        ]);
     }
 
     /**
@@ -80,7 +86,35 @@ class PenggunaController extends Controller
      */
     public function update(Request $request, Pengguna $pengguna)
     {
-        //
+        if($request->password != ''){
+            $request->validate([
+                'nama' => 'required|string|max:255',
+                'email' => 'required|email|unique:pengguna,email,' . $pengguna->id,
+                'password' => 'required|string|min:6|confirmed',
+                'level' => 'required|in:admin,user',
+            ]);
+
+            $pengguna->update([
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'level' => $request->level,
+            ]);
+        } else {
+            $request->validate([
+                'nama' => 'required|string|max:255',
+                'email' => 'required|email|unique:pengguna,email,' . $pengguna->id,
+                'level' => 'required|in:admin,user',
+            ]);
+
+            $pengguna->update([
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'level' => $request->level,
+            ]);
+        }
+
+        return redirect('/pengguna')->with('success', 'Berhasil ubah data');
     }
 
     /**
@@ -88,7 +122,8 @@ class PenggunaController extends Controller
      */
     public function destroy(Pengguna $pengguna)
     {
-        //
+        Pengguna::destroy($pengguna->id);
+        return redirect('/pengguna')->with('success', 'Berhasil hapus data');
     }
 
     public function authenticate(Request $request)
