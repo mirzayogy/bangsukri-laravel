@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengguna;
+use App\Rules\SesuaiPasswordLama;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -86,7 +87,7 @@ class PenggunaController extends Controller
      */
     public function update(Request $request, Pengguna $pengguna)
     {
-        if($request->password != ''){
+        if ($request->password != '') {
             $request->validate([
                 'nama' => 'required|string|max:255',
                 'email' => 'required|email|unique:pengguna,email,' . $pengguna->id,
@@ -147,5 +148,27 @@ class PenggunaController extends Controller
         request()->session()->invalidate();
         request()->session()->regenerateToken();
         return redirect('/login');
+    }
+
+    public function ubahpassword()
+    {
+        return view('pengguna.ubahpassword', [
+            "title" => "Ubah Password",
+            "dashboard_active" => 'active',
+        ]);
+    }
+
+    public function updatepassword(Request $request, Pengguna $pengguna)
+    {
+        $request->validate([
+            'password_lama' => ['required', new SesuaiPasswordLama],
+            'password' => 'required|min:6|max:255|confirmed',
+        ]);
+
+        /** @disregard P1013 */
+        $pengguna->where('id', auth()->user()->id)->update(['password' => bcrypt($request->password)]);
+
+        return redirect(route('pengguna.ubahpassword'))->with('success', 'Berhasil ubah password');
+
     }
 }
