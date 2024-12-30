@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('logout', [PenggunaController::class, 'logout'])->name('pengguna.logout');
     Route::get('ubahpassword', [PenggunaController::class, 'ubahpassword'])->name('pengguna.ubahpassword');
     Route::post('updatepassword', [PenggunaController::class, 'updatepassword'])->name('pengguna.updatepassword');
+    Route::get('ruangpdf', [RuangController::class, 'ruangpdf'])->name('ruang.ruangpdf');
 
     Route::get('/', function () {
         return view('welcome', [

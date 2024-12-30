@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ruang;
 use Illuminate\Http\Request;
+use Spipu\Html2Pdf\Html2Pdf;
 
 class RuangController extends Controller
 {
@@ -92,5 +93,20 @@ class RuangController extends Controller
     {
         Ruang::destroy($ruang->id);
         return redirect('/ruang')->with('success', 'Berhasil hapus data');
+    }
+
+    public function ruangpdf()
+    {
+        $ruang_collections = Ruang::all();
+
+        $content = view('ruang.pdf', [
+            "ruang_collections" => $ruang_collections,
+        ]);
+
+        $html2pdf = new Html2Pdf('P','A4','en');
+        $html2pdf->pdf->setDisplayMode('fullpage');
+        $html2pdf->writeHTML($content);
+        $html2pdf->output('cetak_ruang.pdf');
+
     }
 }

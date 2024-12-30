@@ -14,6 +14,9 @@
             <a href="{{ route('ruang.create') }}" class="btn btn-success btn-sm float-end">
                 <i class="fa fa-plus-circle"></i> Tambah
             </a>
+            <a href="{{ route('ruang.ruangpdf') }}" target="_blank" class="btn btn-primary btn-sm float-end me-1">
+                <i class="fa fa-print"></i> Cetak
+            </a>
         </div>
     </div>
     <div class="row mt-3">
