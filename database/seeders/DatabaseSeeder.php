@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Pemasok;
 use App\Models\Ruang;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -27,5 +28,10 @@ class DatabaseSeeder extends Seeder
             'nama_ruang' => 'Lima',
         ]);
         Ruang::factory(3)->create();
+
+        Pemasok::factory(3)->create([
+            'region' => 'luar negeri'
+        ]);
+        Pemasok::factory(3)->create();
     }
 }
