@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Ruang;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,5 +21,11 @@ class DatabaseSeeder extends Seeder
         $this->call(PemasokSeeder::class);
         $this->call(BarangSeeder::class);
         $this->call(PenggunaSeeder::class);
+
+        Ruang::factory()->create();
+        Ruang::factory()->create([
+            'nama_ruang' => 'Lima',
+        ]);
+        Ruang::factory(3)->create();
     }
 }

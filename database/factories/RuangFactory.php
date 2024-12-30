@@ -17,7 +17,7 @@ class RuangFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nama_ruang' => fake()->word(),
         ];
     }
 }
