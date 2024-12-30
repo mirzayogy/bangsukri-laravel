@@ -19,6 +19,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('ubahpassword', [PenggunaController::class, 'ubahpassword'])->name('pengguna.ubahpassword');
     Route::post('updatepassword', [PenggunaController::class, 'updatepassword'])->name('pengguna.updatepassword');
     Route::get('ruangpdf', [RuangController::class, 'ruangpdf'])->name('ruang.ruangpdf');
+    Route::get('ruangexcel', [RuangController::class, 'ruangexcel'])->name('ruang.ruangexcel');
 
     Route::get('/', function () {
         return view('welcome', [

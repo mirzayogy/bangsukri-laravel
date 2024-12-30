@@ -14,8 +14,11 @@
             <a href="{{ route('ruang.create') }}" class="btn btn-success btn-sm float-end">
                 <i class="fa fa-plus-circle"></i> Tambah
             </a>
-            <a href="{{ route('ruang.ruangpdf') }}" target="_blank" class="btn btn-primary btn-sm float-end me-1">
-                <i class="fa fa-print"></i> Cetak
+            <a href="{{ route('ruang.ruangpdf') }}" target="_blank" class="btn btn-danger btn-sm float-end me-1">
+                <i class="fa fa-file-pdf"></i> Cetak PDF
+            </a>
+              <a href="{{ route('ruang.ruangexcel') }}" target="_blank" class="btn btn-success btn-sm float-end me-1">
+                <i class="fa fa-file-excel"></i> Cetak Excel
             </a>
         </div>
     </div>

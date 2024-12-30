@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Ruang;
 use Illuminate\Http\Request;
 use Spipu\Html2Pdf\Html2Pdf;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class RuangController extends Controller
 {
@@ -109,4 +111,30 @@ class RuangController extends Controller
         $html2pdf->output('cetak_ruang.pdf');
 
     }
+
+    public function ruangexcel()
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Nama Ruang');
+
+        $ruang_collections = Ruang::all();
+        $row = 2;
+        foreach ($ruang_collections as $ruang) {
+            $sheet->setCellValue("A{$row}", $ruang->id);
+            $sheet->setCellValue("B{$row}", $ruang->nama_ruang);
+            $row++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'ruang.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header("Content-Disposition: attachment; filename=\"{$fileName}\"");
+
+        $writer->save('php://output');
+    }
+
 }
