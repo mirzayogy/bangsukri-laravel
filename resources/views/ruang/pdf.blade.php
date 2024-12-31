@@ -19,8 +19,34 @@
     td.angka {
         text-align: right;
     }
+
+    td.garisbawah {
+        text-align: center;
+        border-bottom: 1px solid;
+        padding-bottom: 6px;
+    }
+
+    td.info {
+        border: 0px;
+        padding: 2px;
+    }
 </style>
-<span style="font-size: 20px; font-weight: bold">Data Ruang<br></span>
+<table>
+    <colgroup>
+        <col style="width: 100%">
+    </colgroup>
+    <tbody>
+        <tr>
+            <td class="info garisbawah">
+                <img style="height: 100px;" src="{{ asset('images/kop.png') }}" alt="">
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<div style="text-align: center">
+    <span style="font-size: 20px; font-weight: bold; ">Data Ruang<br></span>
+</div>
 <br>
 <br>
 <table>
