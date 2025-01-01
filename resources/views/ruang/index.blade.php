@@ -17,7 +17,7 @@
             <a href="{{ route('ruang.ruangpdf') }}" target="_blank" class="btn btn-danger btn-sm float-end me-1">
                 <i class="fa fa-file-pdf"></i> Cetak PDF
             </a>
-              <a href="{{ route('ruang.ruangexcel') }}" target="_blank" class="btn btn-success btn-sm float-end me-1">
+            <a href="{{ route('ruang.ruangexcel') }}" target="_blank" class="btn btn-success btn-sm float-end me-1">
                 <i class="fa fa-file-excel"></i> Cetak Excel
             </a>
         </div>
@@ -45,6 +45,17 @@
                 </tbody>
             </table>
         </div>
+    </div>
+
+    <div class="row mt-3">
+        <form  action="{{ route('ruang.ruangexcelimport') }}" method="POST"
+            enctype="multipart/form-data">
+            @csrf
+            @method('POST')
+            <label for="file">Pilih File Excel:</label>
+            <input type="file" id="file" name="file" accept=".xlsx, .xls" required>
+            <button type="submit">Upload</button>
+        </form>
     </div>
     <form action="" method="POST" id="deleteForm">
         @csrf
