@@ -21,7 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('ruangpdf', [RuangController::class, 'ruangpdf'])->name('ruang.ruangpdf');
     Route::get('ruangexcel', [RuangController::class, 'ruangexcel'])->name('ruang.ruangexcel');
     Route::post('ruangexcelimport', [RuangController::class, 'ruangexcelimport'])->name('ruang.ruangexcelimport');
-    Route::get('ruangword', [RuangController::class, 'ruangwordpdf'])->name('ruang.ruangword');
+    Route::get('ruangword', [RuangController::class, 'ruangword'])->name('ruang.ruangword');
 
     Route::get('/', function () {
         return view('welcome', [
