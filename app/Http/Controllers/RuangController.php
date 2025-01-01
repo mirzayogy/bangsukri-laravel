@@ -11,6 +11,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\TemplateProcessor;
+use Dompdf\Dompdf;
+
 
 class RuangController extends Controller
 {
@@ -217,12 +219,13 @@ class RuangController extends Controller
         /** @disregard P1013 */
         $templateProcessor->setValue('pencetak', auth()->user()->nama);
 
+        //styling lengkap ada di htdocs/pais
         $headerCellStyle = [
             'valign' => 'center',
             'bgColor' => '204853',
             'borderSize' => 6,
             'borderColor' => '204853',
-            // 'cellMargin' => 80
+            'cellMargin' => 80
         ];
 
         $contentCellStyle = [
@@ -231,7 +234,7 @@ class RuangController extends Controller
             'borderTopColor' => '000000',
             'borderBottomSize' => 6,
             'borderBottomColor' => '000000',
-            // 'cellMargin' => 80
+            'cellMargin' => 80
         ];
 
         $titleFontStyle = [
@@ -279,13 +282,23 @@ class RuangController extends Controller
         $tempHtmlFile = storage_path('result.html');
         $xmlWriter->save($tempHtmlFile);
 
-        $html2pdf = new Html2Pdf('P', 'A4', 'en');
-        $html2pdf->pdf->setDisplayMode('fullpage');
-        $html2pdf->writeHTML(file_get_contents($tempHtmlFile));
-        $html2pdf->output('cetak_ruang.pdf');
+        // $html2pdf = new Html2Pdf('P', 'A4', 'en');
+        // $html2pdf->pdf->setDisplayMode('fullpage');
+        // $html2pdf->writeHTML(file_get_contents($tempHtmlFile));
+        // $html2pdf->output('cetak_ruang.pdf');
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml(file_get_contents($tempHtmlFile));
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Kirim file PDF ke browser untuk diunduh
+        return response($dompdf->output())
+            ->header('Content-Type', 'application/pdf')
+          ;
 
         unlink($pathToSave);
-        unlink($tempHtmlFile);
+        unlink(storage_path('result.html'));
     }
 
 }
