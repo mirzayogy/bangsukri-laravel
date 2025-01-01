@@ -20,6 +20,9 @@
             <a href="{{ route('ruang.ruangexcel') }}" target="_blank" class="btn btn-success btn-sm float-end me-1">
                 <i class="fa fa-file-excel"></i> Cetak Excel
             </a>
+              <a href="{{ route('ruang.ruangword') }}" target="_blank" class="btn btn-primary btn-sm float-end me-1">
+                <i class="fa fa-file-excel"></i> Cetak Word
+            </a>
         </div>
     </div>
     <div class="row mt-3">

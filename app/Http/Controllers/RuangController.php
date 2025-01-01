@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Ruang;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpWord\IOFactory as IOWord;
 use Spipu\Html2Pdf\Html2Pdf;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpWord\Element\Table;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class RuangController extends Controller
 {
@@ -159,6 +162,130 @@ class RuangController extends Controller
 
         // Debug: Lihat data yang diimport
         dd($rows);
+    }
+
+    public function ruangword()
+    {
+        $templatePath = storage_path('templates/template_word.docx');
+
+        if (!file_exists($templatePath)) {
+            abort(404, 'Template file not found.');
+        }
+
+        $templateProcessor = new TemplateProcessor($templatePath);
+        $templateProcessor->setValue('nama_data', 'Data Ruang');
+        /** @disregard P1013 */
+        $templateProcessor->setValue('pencetak', auth()->user()->nama);
+
+        $table = new Table(['width' => 8000, 'unit' => 'dxa']);
+        $table->addRow(300);
+        $table->addCell(100)->addText('No');
+        $table->addCell(3500)->addText('Nama Ruang');
+
+        $ruang_collections = Ruang::all();
+
+        $no = 1;
+        foreach($ruang_collections as $ruang) {
+            $table->addRow(300);
+            $table->addCell(100)->addText($no++);
+            $table->addCell(3500)->addText($ruang->nama_ruang);
+        }
+
+        $templateProcessor->setComplexBlock('table', $table);
+
+        $pathToSave = 'result_surat.docx';
+        $templateProcessor->saveAs($pathToSave);
+
+        header('Content-Description: File Transfer');
+        header('Content-Disposition: attachment; filename=data_ruang.docx');
+
+        readfile($pathToSave);
+        unlink($pathToSave);
+    }
+
+
+    public function ruangwordpdf()
+    {
+        $templatePath = storage_path('templates/template_word.docx');
+
+        if (!file_exists($templatePath)) {
+            abort(404, 'Template file not found.');
+        }
+
+        $templateProcessor = new TemplateProcessor($templatePath);
+        $templateProcessor->setValue('nama_data', 'Data Ruang');
+        /** @disregard P1013 */
+        $templateProcessor->setValue('pencetak', auth()->user()->nama);
+
+        $headerCellStyle = [
+            'valign' => 'center',
+            'bgColor' => '204853',
+            'borderSize' => 6,
+            'borderColor' => '204853',
+            // 'cellMargin' => 80
+        ];
+
+        $contentCellStyle = [
+            'valign' => 'center',
+            'borderTopSize' => 6,
+            'borderTopColor' => '000000',
+            'borderBottomSize' => 6,
+            'borderBottomColor' => '000000',
+            // 'cellMargin' => 80
+        ];
+
+        $titleFontStyle = [
+            'bold' => true,
+            'color' => 'ffffff',
+            'size' => 10,
+            // 'name' => 'Century Gothic (Headings)'
+        ];
+
+        $contentFontStyle = [
+            'size' => 10,
+            // 'name' => 'Garamond (Body)'
+        ];
+
+        $paragraphStyle = [
+            'align' => 'center',
+        ];
+
+        $textParagraphStyle = [
+            'align' => 'left',
+        ];
+
+        $table = new Table(['width' => 8000, 'unit' => 'dxa']);
+        $table->addRow(300);
+        $table->addCell(100, $headerCellStyle)->addText('No', $titleFontStyle, $paragraphStyle);
+        $table->addCell(3500, $headerCellStyle)->addText('Nama Ruang', $titleFontStyle, $paragraphStyle);
+
+        $no = 1;
+        $ruang_collections = Ruang::all();
+        foreach ($ruang_collections as $ruang) {
+            $table->addRow(300);
+            $table->addCell(100, $contentCellStyle)->addText($no++, $contentFontStyle, $paragraphStyle);
+            $table->addCell(3500, $contentCellStyle)->addText($ruang->nama_ruang, $contentFontStyle, $textParagraphStyle);
+        }
+
+        $templateProcessor->setComplexBlock('table', $table);
+
+        $pathToSave = 'result_surat.docx';
+        $templateProcessor->saveAs($pathToSave);
+
+        $phpWord = IOWord::load($pathToSave, 'Word2007');
+        $xmlWriter = IOWord::createWriter($phpWord, 'HTML');
+
+        // Simpan file HTML sementara
+        $tempHtmlFile = storage_path('result.html');
+        $xmlWriter->save($tempHtmlFile);
+
+        $html2pdf = new Html2Pdf('P', 'A4', 'en');
+        $html2pdf->pdf->setDisplayMode('fullpage');
+        $html2pdf->writeHTML(file_get_contents($tempHtmlFile));
+        $html2pdf->output('cetak_ruang.pdf');
+
+        unlink($pathToSave);
+        unlink($tempHtmlFile);
     }
 
 }
