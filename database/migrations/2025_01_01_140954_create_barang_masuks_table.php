@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('barang_masuks', function (Blueprint $table) {
             $table->id();
+            $table->date('tanggal');
+            $table->bigInteger('pemasok_id');
+            $table->bigInteger('pengguna_id');
             $table->timestamps();
         });
     }
